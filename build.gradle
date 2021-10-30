@@ -253,7 +253,9 @@ configure(allprojects) { project ->
             cacheChangingModulesFor 0, "seconds"
         }
         repositories {
-            maven { url 'https://maven.aliyun.com/repository/central' }
+            maven {
+                url 'https://maven.aliyun.com/repository/central'
+            }
         }
     }
     configurations.all {
@@ -375,10 +377,10 @@ configure(rootProject) {
         def projectDirs = allprojects.collect { it.projectDir } + "${rootDir}/buildSrc"
         projectDirs.forEach { dir ->
             ['bin', 'build', 'out', '.settings']
-                    .collect { rootPath.relativize(new File(dir, it).toPath()) }
+                    .collect { rootPath.relativize(new File(dir as File, it).toPath()) }
                     .forEach { source.exclude "$it/**" }
             ['.classpath', '.project']
-                    .collect { rootPath.relativize(new File(dir, it).toPath()) }
+                    .collect { rootPath.relativize(new File(dir as File, it).toPath()) }
                     .forEach { source.exclude "$it" }
         }
     }
